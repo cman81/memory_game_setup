@@ -16,13 +16,14 @@ class HelloWorldTest extends TestCase {
       'base_uri' => 'http://localhost:8000',
     ]);
 
-    // does this page exist?
-    $response = $client->get('/code-challenge/card-grid?rows=2&columns=2');
-    $this->assertEquals(200, $response->getStatusCode());
-    
-    // The endpoint takes 2 query parameters: rows and columns.
+    // check for cardCount: 2 rows x 2 columns = 4 cards
+    $response = $client->get('/code-challenge/card-grid?rows=2&columns=2');    
     $json = json_decode($response->getBody(TRUE), TRUE);
-    $this->assertArrayHasKey('data', $json);
-    $this->assertArrayHasKey('meta', $json);
+    $this->assertEquals(4, $json['meta']['cardCount']);
+
+    // 4 rows x 6 columns = 24 cards
+    $response = $client->get('/code-challenge/card-grid?rows=4&columns=6');    
+    $json = json_decode($response->getBody(TRUE), TRUE);
+    $this->assertEquals(24, $json['meta']['cardCount']);
   }
 }
