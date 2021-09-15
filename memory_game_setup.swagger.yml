@@ -1,0 +1,64 @@
+openapi: 3.0.1
+info:
+  title: Memory Match API
+  description: An HTTP API endpoint for building a memory game.
+  version: '0.1'
+servers:
+  - url: http://localhost:8000
+paths:
+  /code-challenge/card-grid:
+    get:
+      description: "The endpoint takes 2 query parameters: rows and columns. Both parameters are required, should be greater than zero but no greater than 6, and at least one of them needs to be an even number."
+      parameters:
+        - name: rows
+          in: query
+          schema:
+            type: string
+          example: '2'
+        - name: columns
+          in: query
+          schema:
+            type: string
+          example: '5'
+      responses:
+        '200':
+          description: "The response contains meta data and a 2-dimensional array with as many rows and columns as the query parameter values."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      cards:
+                        type: array
+                        items:
+                          type: array
+                          items:
+                            type: string
+                  meta:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      cardCount:
+                        type: integer
+                      uniqueCards:
+                        type: array
+                        items:
+                          type: string
+                      uniqueCardCount:
+                        type: integer
+              examples:
+                '0':
+                  value: >-
+                    {"meta":{"success":true,"cardCount":10,"uniqueCardCount":5,"uniqueCards":["Iron
+                    Man","Captain America","Hulk","Thor","Black
+                    Widow"]},"data":{"cards":[["Thor","Captain America","Captain
+                    America","Iron Man","Black Widow"],["Hulk","Iron Man","Black
+                    Widow","Thor","Hulk"]]}}
+      servers:
+        - url: http://localhost:8000
+    servers:
+      - url: http://localhost:8000
