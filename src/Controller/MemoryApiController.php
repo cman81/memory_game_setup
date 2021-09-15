@@ -10,7 +10,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class MemoryApiController {
   public function render() {
     return new JsonResponse([
-      'data' => 'hello world',
+      'meta' => [
+        'success' => TRUE,
+        'cardCount' => 4,
+        'uniqueCardCount' => 2,
+        'uniqueCards' => ['D', 'G']
+      ],
+      'data' => [
+        'cards' => [
+          ['D', 'G'],
+          ['G', 'D'],
+        ]
+      ],
     ]);
   }
 }
