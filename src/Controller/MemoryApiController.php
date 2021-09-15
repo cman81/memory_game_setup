@@ -29,7 +29,7 @@ class MemoryApiController {
         'success' => TRUE,
         'cardCount' => $game->getCardCount(),
         'uniqueCardCount' => $game->getUniqueCardCount(),
-        'uniqueCards' => ['D', 'G'],
+        'uniqueCards' => $game->getUniqueCards(),
       ],
       'data' => [
         'cards' => [
