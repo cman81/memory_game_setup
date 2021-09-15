@@ -1,0 +1,7 @@
+memory_game_setup.api:
+  path: '/code-challenge/card-grid'
+  defaults:
+    _controller: 'Drupal\memory_game_setup\Controller\MemoryApiController::render'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
