@@ -21,12 +21,14 @@ class HelloWorldTest extends TestCase {
     $json = json_decode($response->getBody(TRUE), TRUE);
     $this->assertEquals(4, $json['meta']['cardCount']);
     $this->assertEquals(2, $json['meta']['uniqueCardCount']);
+    $this->assertCount(2, $json['meta']['uniqueCards']);
 
     // 4 rows x 6 columns = 24 cards (12 unique)
     $response = $client->get('/code-challenge/card-grid?rows=4&columns=6');    
     $json = json_decode($response->getBody(TRUE), TRUE);
     $this->assertEquals(24, $json['meta']['cardCount']);
     $this->assertEquals(12, $json['meta']['uniqueCardCount']);
+    $this->assertCount(12, $json['meta']['uniqueCards']);
 
     // handle nonsense input
     $response = $client->get('/code-challenge/card-grid');    
