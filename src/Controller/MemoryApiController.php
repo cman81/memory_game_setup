@@ -41,7 +41,7 @@ class MemoryApiController {
     return new JsonResponse([
       'meta' => [
         'success' => FALSE,
-        'message' => 'Either "rows" or "columns" needs to be an even number.'
+        'message' => 'Either "rows" or "columns" needs to be an even number. Also, you cannot have more than 6 rows nor 6 columns.'
       ],
       'data' => [],
     ]);
