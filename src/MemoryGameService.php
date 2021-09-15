@@ -73,17 +73,40 @@ class MemoryGameService {
 
   /**
    * Build the board of cards laid out as specified in rows and columns.
-   * 
-   * The array will have a total of ((rows * columns) / 2) unique items repeated twice.
    */
   function buildRandomBoard() {
-    $deck = array_merge($this->unique_cards, $this->unique_cards); // repeated twice!
+    $deck = $this->buildAndShuffleDeck();
 
     for ($row_index = 0; $row_index < $this->rows; $row_index++) {
       for ($column_index = 0; $column_index < $this->columns; $column_index++) {
         $this->board_state[$row_index][$column_index] = array_pop($deck);
       }
     }
+  }
+
+  /**
+   * Build and shuffle a deck of cards.
+   * 
+   * Note: The array will have a total of ((rows * columns) / 2) unique items repeated twice.
+   * 
+   * "As it turns out, the easiest way to implement a shuffle is by sorting... We'll just sort by a
+   * random number-- in this case, a GUID."
+   * 
+   * @see https://blog.codinghorror.com/shuffling/
+   */
+  function buildAndShuffleDeck(): array {
+    $unshuffled_deck = array_merge($this->unique_cards, $this->unique_cards); // repeated twice!
+    
+    $shuffled_deck = [];
+    $uuid_service = \Drupal::service('uuid');
+    foreach ($unshuffled_deck as $this_card) {
+      $key = $uuid_service->generate();
+      $shuffled_deck[$key] = $this_card;
+    }
+
+    ksort($shuffled_deck);
+
+    return $shuffled_deck;
   }
 
   /**
