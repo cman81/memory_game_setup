@@ -16,20 +16,6 @@ class HelloWorldTest extends TestCase {
       'base_uri' => 'http://localhost:8000',
     ]);
 
-    // check for cardCount: 2 rows x 2 columns = 4 cards (2 unique)
-    $response = $client->get('/code-challenge/card-grid?rows=2&columns=2');    
-    $json = json_decode($response->getBody(TRUE), TRUE);
-    $this->assertEquals(4, $json['meta']['cardCount']);
-    $this->assertEquals(2, $json['meta']['uniqueCardCount']);
-    $this->assertCount(2, $json['meta']['uniqueCards']);
-
-    // 4 rows x 6 columns = 24 cards (12 unique)
-    $response = $client->get('/code-challenge/card-grid?rows=4&columns=6');    
-    $json = json_decode($response->getBody(TRUE), TRUE);
-    $this->assertEquals(24, $json['meta']['cardCount']);
-    $this->assertEquals(12, $json['meta']['uniqueCardCount']);
-    $this->assertCount(12, $json['meta']['uniqueCards']);
-
     // handle nonsense input
     $response = $client->get('/code-challenge/card-grid');    
     $json = json_decode($response->getBody(TRUE), TRUE);
@@ -47,5 +33,21 @@ class HelloWorldTest extends TestCase {
     $response = $client->get('/code-challenge/card-grid?rows=7&columns=2');    
     $json = json_decode($response->getBody(TRUE), TRUE);
     $this->assertFalse($json['meta']['success']);
+
+    // check for cardCount: 2 rows x 2 columns = 4 cards (2 unique)
+    $response = $client->get('/code-challenge/card-grid?rows=2&columns=2');    
+    $json = json_decode($response->getBody(TRUE), TRUE);
+    $this->assertEquals(4, $json['meta']['cardCount']);
+    $this->assertEquals(2, $json['meta']['uniqueCardCount']);
+    $this->assertCount(2, $json['meta']['uniqueCards']);
+
+    // 4 rows x 6 columns = 24 cards (12 unique)
+    $response = $client->get('/code-challenge/card-grid?rows=4&columns=6');    
+    $json = json_decode($response->getBody(TRUE), TRUE);
+    $this->assertEquals(24, $json['meta']['cardCount']);
+    $this->assertEquals(12, $json['meta']['uniqueCardCount']);
+    $this->assertCount(12, $json['meta']['uniqueCards']);
+
+    
   }
 }
