@@ -100,7 +100,7 @@ class MemoryGameService {
       return FALSE;
     }
     if ($this->card_count % 2 == 1) {
-      // This only occurs when rows and columns are odd
+      // This only occurs when neither rows nor columns are an even number
       return FALSE;
     }
 
