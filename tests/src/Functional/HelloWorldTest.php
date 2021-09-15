@@ -12,7 +12,7 @@ class HelloWorldTest extends TestCase {
       'base_uri' => 'http://localhost:8000',
     ]);
 
-    $response = $client->get('/');
+    $response = $client->get('/code-challenge/card-grid?rows=2&columns=2');
 
     $this->assertEquals(200, $response->getStatusCode());
   }  
