@@ -40,6 +40,7 @@ class HelloWorldTest extends TestCase {
     $this->assertEquals(4, $json['meta']['cardCount']);
     $this->assertEquals(2, $json['meta']['uniqueCardCount']);
     $this->assertCount(2, $json['meta']['uniqueCards']);
+    $this->assertCount(2, $json['data']['cards']); // test rows
 
     // 4 rows x 6 columns = 24 cards (12 unique)
     $response = $client->get('/code-challenge/card-grid?rows=4&columns=6');    
@@ -47,7 +48,6 @@ class HelloWorldTest extends TestCase {
     $this->assertEquals(24, $json['meta']['cardCount']);
     $this->assertEquals(12, $json['meta']['uniqueCardCount']);
     $this->assertCount(12, $json['meta']['uniqueCards']);
-
-    
+    $this->assertCount(4, $json['data']['cards']); // test rows
   }
 }
