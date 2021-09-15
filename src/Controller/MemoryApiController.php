@@ -22,12 +22,17 @@ class MemoryApiController {
     if ($columns < 1 || $columns > 6) {
       return $this::get_error_response();
     }
+
+    $cardCount = $rows * $columns;
+    if ($cardCount % 2 == 1) {
+      return $this::get_error_response(); 
+    }
     
     // return a valid response
     return new JsonResponse([
       'meta' => [
         'success' => TRUE,
-        'cardCount' => $rows * $columns,
+        'cardCount' => $cardCount,
         'uniqueCardCount' => 2,
         'uniqueCards' => ['D', 'G'],
       ],
