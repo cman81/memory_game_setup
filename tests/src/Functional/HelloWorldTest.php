@@ -30,5 +30,10 @@ class HelloWorldTest extends TestCase {
     $response = $client->get('/code-challenge/card-grid');    
     $json = json_decode($response->getBody(TRUE), TRUE);
     $this->assertFalse($json['meta']['success']);
+
+    // 3 rows x 5 columns = 15 cards. We should not allow this
+    $response = $client->get('/code-challenge/card-grid?rows=3&columns=5');    
+    $json = json_decode($response->getBody(TRUE), TRUE);
+    $this->assertFalse($json['meta']['success']);
   }
 }

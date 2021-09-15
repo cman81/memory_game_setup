@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * Memory HTTP API Controller Class
  */
 class MemoryApiController {
+  /**
+   * Controller for route: /code-challenge/card-grid
+   */
   public function render(Request $request) {
     // sanitize and validate parameters
     $rows = $request->query->get('rows');
@@ -16,7 +19,11 @@ class MemoryApiController {
       return $this::get_error_response();
     }
     $columns = $request->query->get('columns');
-
+    if ($columns < 1 || $columns > 6) {
+      return $this::get_error_response();
+    }
+    
+    // return a valid response
     return new JsonResponse([
       'meta' => [
         'success' => TRUE,
@@ -33,6 +40,14 @@ class MemoryApiController {
     ]);
   }
 
+  /**
+   * Make sure we follow these requirements:
+   * - The endpoint takes 2 query parameters: rows and columns.
+   * - Both parameters are required, should be greater than zero but no greater than 6
+   * - At least one of them needs to be an even number.
+   * 
+   * Otherwise, return this error response.
+   */
   static function get_error_response() {
     return new JsonResponse([
       'meta' => [
