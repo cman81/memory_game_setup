@@ -41,6 +41,7 @@ class MemoryGameService {
     'Drax',
     'Rocket Raccoon',
   ];
+  private $board_state = [];
 
   /**
    * Factory for making a new game.
@@ -67,6 +68,22 @@ class MemoryGameService {
 
     $this->unique_card_count = $this->card_count / 2;
     $this->unique_cards = array_slice($this->unique_cards, 0, $this->unique_card_count);
+    $this->buildRandomBoard();
+  }
+
+  /**
+   * Build the board of cards laid out as specified in rows and columns.
+   * 
+   * The array will have a total of ((rows * columns) / 2) unique items repeated twice.
+   */
+  function buildRandomBoard() {
+    $deck = array_merge($this->unique_cards, $this->unique_cards); // repeated twice!
+
+    for ($row_index = 0; $row_index < $this->rows; $row_index++) {
+      for ($column_index = 0; $column_index < $this->columns; $column_index++) {
+        $this->board_state[$row_index][$column_index] = array_pop($deck);
+      }
+    }
   }
 
   /**
@@ -109,5 +126,12 @@ class MemoryGameService {
    */ 
   public function getUniqueCards(): array {
     return $this->unique_cards;
+  }
+
+  /**
+   * Get the value of board_state
+   */ 
+  public function getBoardState(): array {
+    return $this->board_state;
   }
 }

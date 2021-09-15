@@ -32,10 +32,7 @@ class MemoryApiController {
         'uniqueCards' => $game->getUniqueCards(),
       ],
       'data' => [
-        'cards' => [
-          ['D', 'G'],
-          ['G', 'D'],
-        ]
+        'cards' => $game->getBoardState(),
       ],
     ]);
   }
