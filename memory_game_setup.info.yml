@@ -1,0 +1,4 @@
+name: 'Memory Game Setup'
+description: 'A Drupal module for setting up random pairs in a Memory game'
+core: 8.x
+type: module

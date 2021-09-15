@@ -1,5 +1,5 @@
 {
-    "name": "drupal/memory-game-setup",
+    "name": "drupal/memory_game_setup",
     "description": "A Drupal module for setting up random pairs in a Memory game",
     "type": "drupal-custom-module",
     "license": "GPL-2.0-or-later",
