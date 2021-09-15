@@ -1,0 +1,3 @@
+services:
+  memory_game_setup.game:
+    class: Drupal\memory_game_setup\MemoryGameService
